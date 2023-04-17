@@ -15,7 +15,7 @@ APP_NAME= 'slimbookamdcontroller'
 USER_NAME = utils.get_user()
 HOMEDIR = os.path.expanduser('~')
 
-CONFIG_FILE = '{}/.config/{}/{}.conf'.format(HOMEDIR, APP_NAME, APP_NAME)
+CONFIG_FILE = f'{HOMEDIR}/.config/{APP_NAME}/{APP_NAME}.conf'
 print(CONFIG_FILE)
 
 config = ConfigParser()
@@ -31,7 +31,7 @@ version = patron.search(CPU).group(2)
 number = patron.search(CPU).group(3)
 line_suffix = patron.search(CPU).group(4)
 
-MODEL_CPU = type+'-'+version+'-'+number+line_suffix
+MODEL_CPU = f'{type}-{version}-{number}{line_suffix}'
 
 class WarnDialog(Gtk.Dialog):
     def __init__(self, parent, label):

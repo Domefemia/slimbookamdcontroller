@@ -14,20 +14,18 @@ from gi.repository import Gdk, Gtk, GLib, GdkPixbuf
 
 APPNAME = 'slimbookamdcontroller'
 USER_NAME = utils.get_user()
-HOMEDIR = os.path.expanduser('~'+USER_NAME)
+HOMEDIR = os.path.expanduser(f'~{USER_NAME}')
 
 CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-CONFIG_FILE = '{}/.config/{}/{}.conf'.format(HOMEDIR, APPNAME, APPNAME)
-LAUNCHER_DESKTOP = os.path.join(
-    BASE_DIR, "{}-autostart.desktop".format(APPNAME))
-AUTOSTART_DESKTOP = os.path.expanduser(
-    "{}/.config/autostart/{}-autostart.desktop".format(HOMEDIR, APPNAME))
+CONFIG_FILE = f'{HOMEDIR}/.config/{APPNAME}/{APPNAME}.conf'
+LAUNCHER_DESKTOP = os.path.join(BASE_DIR, f"{APPNAME}-autostart.desktop")
+AUTOSTART_DESKTOP = os.path.expanduser(f"{HOMEDIR}/.config/autostart/{APPNAME}-autostart.desktop")
 
 _ = utils.load_translation(APPNAME)
 
-iconpath = CURRENT_PATH+'/amd.png'
+iconpath = f'{CURRENT_PATH}/amd.png'
 
 cpu = utils.get_cpu_info('name')
 patron = re.compile('[ ](.*)[ ]*([0-9]).*([0-9]{4,})(\w*)')

@@ -10,7 +10,7 @@ gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
 
 from pathlib import Path
-from gi.repository import Gtk, Gdk, GdkPixbuf     
+from gi.repository import Gtk, Gdk, GdkPixbuf
 from os.path import expanduser   
 
 
@@ -27,11 +27,11 @@ _ = utils.load_translation('slimbookamdcontrollerinfo')
 idiomas = utils.get_languages()[0]
 
 user_name = subprocess.getoutput("logname")
-user = subprocess.getoutput("echo ~"+user_name)
+user = subprocess.getoutput(f"echo ~{user_name}")
 
 
 style_provider = Gtk.CssProvider()
-style_provider.load_from_path(currpath+'/css/style.css')
+style_provider.load_from_path(f'{currpath}/css/style.css')
 
 Gtk.StyleContext.add_provider_for_screen (
     Gdk.Screen.get_default(), style_provider,

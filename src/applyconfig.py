@@ -14,10 +14,10 @@ gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
 
 USER_NAME = utils.get_user()
-HOMEDIR = subprocess.getoutput("echo ~"+USER_NAME)
+HOMEDIR = subprocess.getoutput(f"echo ~{USER_NAME}")
 
-config_file = HOMEDIR+'/.config/slimbookamdcontroller/slimbookamdcontroller.conf'
-print("Reading "+config_file)
+config_file = f'{HOMEDIR}/.config/slimbookamdcontroller/slimbookamdcontroller.conf'
+print(f"Reading {config_file}")
 config = configparser.ConfigParser()
 
 
@@ -30,9 +30,9 @@ call=''
 
 #READING VARIABLES
 modo_actual = config.get('CONFIGURATION', 'mode')
-print("Current mode: "+modo_actual)
+print(f"Current mode: {modo_actual}")
 parameters = config.get('USER-CPU', 'cpu-parameters').split('/')
-print("Parameters: "+str(parameters))
+print(f"Parameters: {str(parameters)}")
 
 mode = -1
 
@@ -48,11 +48,11 @@ if modo_actual == "high":
 try:
     set_parameters = parameters[mode].split('-')
     sleep(3)
-    print('Setting '+modo_actual+' to : '+set_parameters[0]+' '+set_parameters[1]+' '+set_parameters[2]+'.\n')
+    print(f'Setting {modo_actual} to : {set_parameters[0]} {set_parameters[1]} {set_parameters[2]}' + '.\n')
     call = os.system('sudo /usr/share/slimbookamdcontroller/ryzenadj --tctl-temp=95'+' --slow-limit='+set_parameters[0]+' --stapm-limit='+set_parameters[1]+' --fast-limit='+set_parameters[2]+'')
 
     print('--------------------------------------------')
-    print('Exit: '+str(call))
+    print(f'Exit: {str(call)}')
     print('--------------------------------------------')
 
     #print(str('sys.exit('+str(call)+')'))
@@ -60,6 +60,5 @@ try:
         (sys.exit(1))
 
 except Exception as e:
-    print('ERROR: {}'.format(e))
-
+    print(f'ERROR: {e}')
        

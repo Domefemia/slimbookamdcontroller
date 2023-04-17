@@ -12,7 +12,7 @@ def get_user(from_file=None):
         user_name = os.getlogin()
 
     if from_file and os.path.exists(from_file):
-        exit_code, candidate = subprocess.getstatusoutput('cat {} | tail -n 1 | cut -f 2 -d "@"'.format(from_file))
+        exit_code, candidate = subprocess.getstatusoutput(f'cat {from_file} | tail -n 1 | cut -f 2 -d "@"')
         if exit_code != 0:
             user_name = candidate
 

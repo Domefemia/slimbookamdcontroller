@@ -9,10 +9,10 @@ from os import path as path
 APP = 'SlimbookAmdController'
 CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
 VERSION_FILE = ConfigParser()
-VERSION_FILE.read(path.join(CURRENT_PATH, '..', '{}.desktop'.format(APP.casefold())))
+VERSION_FILE.read(path.join(CURRENT_PATH, '..', f'{APP.casefold()}.desktop'))
 VERSION = VERSION_FILE.get('Desktop Entry', 'Version') if VERSION_FILE.has_option('Desktop Entry', 'Version') else None
-BUILD_PATH = path.join(CURRENT_PATH, '..', '..', '..', '{}_{}'.format(
-    APP, VERSION)) if VERSION else None
+BUILD_PATH = path.join(CURRENT_PATH, '..', '..', '..', f'{APP}_{VERSION}') if VERSION else None
+
 
 
 if path.exists(BUILD_PATH):
@@ -20,8 +20,7 @@ if path.exists(BUILD_PATH):
 
 print(path.exists(BUILD_PATH), BUILD_PATH)
 
-CHILD_BUILD_PATH = path.join(BUILD_PATH, '{}-{}'.format(
-    APP, VERSION).casefold()) if VERSION else None
+CHILD_BUILD_PATH = path.join(BUILD_PATH, f'{APP}-{VERSION}'.casefold()) if VERSION else None
 
 shutil.copytree(path.join(CURRENT_PATH, '..'), CHILD_BUILD_PATH)
 

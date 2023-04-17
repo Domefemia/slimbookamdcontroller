@@ -29,12 +29,12 @@ CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
 
 USER_NAME = utils.get_user()
 
-HOMEDIR = subprocess.getoutput("echo ~"+USER_NAME)
+HOMEDIR = subprocess.getoutput(f"echo ~{USER_NAME}")
 
 _ = utils.load_translation('slimbookamdcontrollerindicator')
 
-CONFIG_FILE = HOMEDIR + '/.config/slimbookamdcontroller/slimbookamdcontroller.conf'
-ICON_FILE = CURRENT_PATH+'/amd.png'
+CONFIG_FILE = f'{HOMEDIR}/.config/slimbookamdcontroller/slimbookamdcontroller.conf'
+ICON_FILE = f'{CURRENT_PATH}/amd.png'
 config = ConfigParser()
 
 #Menu
@@ -45,7 +45,7 @@ class Indicator():
 
 	def __init__(self):
 		self.app = 'show_proc'
-		iconpath = CURRENT_PATH+'/amd.png'
+		iconpath = f'{CURRENT_PATH}/amd.png'
 		# after you defined the initial indicator, you can alter the icon!
 		self.testindicator = AppIndicator3.Indicator.new(
 			self.app, iconpath, AppIndicator3.IndicatorCategory.OTHER)
@@ -58,13 +58,13 @@ class Indicator():
 		menu = Gtk.Menu()
 	
 		icon_bajo = Gtk.Image()
-		icon_bajo.set_from_file(CURRENT_PATH+'/images/amd-1.png')
+		icon_bajo.set_from_file(f'{CURRENT_PATH}/images/amd-1.png')
 
 		icon_medio = Gtk.Image()
-		icon_medio.set_from_file(CURRENT_PATH+'/images/amd-2.png')
+		icon_medio.set_from_file(f'{CURRENT_PATH}/images/amd-2.png')
 
 		icon_alto = Gtk.Image()
-		icon_alto.set_from_file(CURRENT_PATH+'/images/amd-3.png')
+		icon_alto.set_from_file(f'{CURRENT_PATH}/images/amd-3.png')
 
 
 		item_bajo = Gtk.ImageMenuItem(label=_('Low performance'), image = icon_bajo)
@@ -124,7 +124,7 @@ class Indicator():
 		params = config.get('USER-CPU', 'cpu-parameters').split('/')
 		self.parameters = params
 		
-		print('- CPU Parameters: {}'.format(str(self.parameters)))
+		print(f'- CPU Parameters: {str(self.parameters)}')
 
 
 		if config.get('CONFIGURATION', 'mode') == "low":
@@ -150,13 +150,13 @@ class Indicator():
 		with open(CONFIG_FILE, 'w') as configfile:
 				config.write(configfile)
 
-		print("Updated "+variable+" --> "+value+"\n")
+		print(f"Updated {variable} --> {value}" + "\n")
 
 	#Funcion para configuracion de bajo rendimiento
 	def bajorendimiento(self, widgets=False):
 		self.modo_actual="low"
-		self.icono_actual=CURRENT_PATH+'/images/amd-1.png'
-		self.testindicator.set_icon_full(CURRENT_PATH+'/images/amd-1.png', "Slimbook AMD")
+		self.icono_actual = f'{CURRENT_PATH}/images/amd-1.png'
+		self.testindicator.set_icon_full(f'{CURRENT_PATH}/images/amd-1.png', "Slimbook AMD")
             
 		self.update_config_file("mode", self.modo_actual)
 		proc = subprocess.Popen('pkexec slimbookamdcontroller-pkexec', shell=True)
@@ -164,8 +164,8 @@ class Indicator():
 	#Funcion para configuracion de medio rendimiento
 	def mediorendimiento(self, widgets=False):
 		self.modo_actual="medium"
-		self.icono_actual=CURRENT_PATH+'/images/amd-2.png'
-		self.testindicator.set_icon_full(CURRENT_PATH+'/images/amd-2.png', "Slimbook AMD")
+		self.icono_actual= f'{CURRENT_PATH}/images/amd-2.png'
+		self.testindicator.set_icon_full(f'{CURRENT_PATH}/images/amd-2.png', "Slimbook AMD")
 		
 		self.update_config_file("mode", self.modo_actual)
 		proc = subprocess.Popen('pkexec slimbookamdcontroller-pkexec', shell=True)
@@ -174,8 +174,8 @@ class Indicator():
 	#Funcion para configuracion de alto rendimiento
 	def altorendimiento(self, widgets=False):
 		self.modo_actual="high"
-		self.icono_actual=CURRENT_PATH+'/images/amd-3.png'
-		self.testindicator.set_icon_full(CURRENT_PATH+'/images/amd-3.png', "Slimbook AMD")
+		self.icono_actual= f'{CURRENT_PATH}/images/amd-3.png'
+		self.testindicator.set_icon_full(f'{CURRENT_PATH}/images/amd-3.png', "Slimbook AMD")
 
 		self.update_config_file("mode", self.modo_actual)
 		proc = subprocess.Popen('pkexec slimbookamdcontroller-pkexec', shell=True)
